@@ -15,8 +15,7 @@ Detectar un incendio.
 
 
 ## :robot: Link al proyecto
-- [proyecto][([https://www.tinkercad.com/things/aOYiibnDjWu](https://www.tinkercad.com/things/euJDCtFru7V-1er-parcial-spd))](https://www.tinkercad.com/things/euJDCtFru7V-1er-parcial-spd/editel)
-
+- [proyecto][([https://www.tinkercad.com/things/aOYiibnDjWu]
 
 ---
 
