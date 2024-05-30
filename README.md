@@ -1,56 +1,28 @@
 # Parcial-SPD
 Código Arduino. Parcial SPD-UTN
-![Tinkercad](./img/ArduinoTinkercad.jpg)
 
+- Emiliano Garcia
 
-## Integrantes 
-- Matias M. Quiroz
-- Esteban M. Quiroz
-- Mateo
-
-
-## Proyecto: Contador binario.
-![Tinkercad](./img/ContadorBinario.png)
-
+## Proyecto: Sistema de incendio con Arduino
 
 ## Descripción
-En este parrafo deberan describir que funcion cumple su proyecto. Que solucion esta ofreciendo.
-
+El objetivo de este proyecto fue diseñar un sistema de incendio utilizando Arduino que pueda detectar cambios de temperatura 
+y activar un sistema de respuesta en caso de detectar un incendio. Además, se mostrará el nivel de temperatura en un display de 7 segmentos.
 ## Función principal
-Esta funcion se encarga de encender y apagar los leds.
+Detectar un incendio.
 
-B0, B1, B2, B3 son #define que utilizamos para agregar los leds, asociandolo a pines de la placa arduino.
+![1er Parcial SPD](https://github.com/EmiyG/Parcial-SPD/assets/123533958/820ef9be-9a4b-42bd-a552-8761ffbae487)
 
-(Breve explicación de la función)
-
-~~~ C (lenguaje en el que esta escrito)
-void EncenderBinario(int estado3, int estado2,int estado1,int estado0)
-{
-  digitalWrite(B3,estado3);
-  digitalWrite(B2,estado2);
-  digitalWrite(B1,estado1);
-  digitalWrite(B0,estado0);
-}
-~~~
 
 ## :robot: Link al proyecto
-- [proyecto](https://www.tinkercad.com/things/aOYiibnDjWu)
-## :video_camera: Link al video del proceso
-- [video](https://www.youtube.com/watch?v=VyGjE8kx-O0)
+- [proyecto]([https://www.tinkercad.com/things/aOYiibnDjWu](https://www.tinkercad.com/things/euJDCtFru7V-1er-parcial-spd))
+
 
 ---
 ### Fuentes
 - [Consejos para documentar](https://www.sohamkamani.com/how-to-write-good-documentation/#architecture-documentation).
 
-- [Lenguaje Markdown](https://markdown.es/sintaxis-markdown/#linkauto).
 
-- [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
-
-- [Tutorial](https://www.youtube.com/watch?v=oxaH9CFpeEE).
-
-- [Emojis](https://gist.github.com/rxaviers/7360908).
-
----
 
 
 
