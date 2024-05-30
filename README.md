@@ -15,12 +15,10 @@ Detectar un incendio.
 
 
 ## :robot: Link al proyecto
-- [proyecto]([https://www.tinkercad.com/things/aOYiibnDjWu](https://www.tinkercad.com/things/euJDCtFru7V-1er-parcial-spd))
+- [proyecto][([https://www.tinkercad.com/things/aOYiibnDjWu](https://www.tinkercad.com/things/euJDCtFru7V-1er-parcial-spd))](https://www.tinkercad.com/things/euJDCtFru7V-1er-parcial-spd/editel)
 
 
 ---
-### Fuentes
-- [Consejos para documentar](https://www.sohamkamani.com/how-to-write-good-documentation/#architecture-documentation).
 
 
 
