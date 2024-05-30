@@ -1,0 +1,218 @@
+#include <Servo.h>
+
+// Definimos los pines de cada componente 
+#define SENSOR_TEMPERATURA A0
+#define LED_1 3
+#define LED_2 4
+#define BOTON_ENCENDER 12
+#define BOTON_APAGAR 13
+#define SERVO_PIN A4
+#define A 5
+#define B 6
+#define C 7
+#define D 8
+#define E 9
+#define F 10
+#define G 11
+
+Servo miServo;
+
+bool sistemaEncendido = true; // El sistema inicia encendido
+
+void setup()
+{
+  Serial.begin(9600);
+
+  // Configuramos los pines del LED y los segmentos del display
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(SENSOR_TEMPERATURA, INPUT);
+  pinMode(LED_1, OUTPUT);
+  pinMode(LED_2, OUTPUT);
+  pinMode(BOTON_ENCENDER, INPUT_PULLUP);
+  pinMode(BOTON_APAGAR, INPUT_PULLUP);
+
+  // Configuramos los pines del display de 7 segmentos
+  pinMode(A, OUTPUT);
+  pinMode(B, OUTPUT);
+  pinMode(C, OUTPUT);
+  pinMode(D, OUTPUT);
+  pinMode(E, OUTPUT);
+  pinMode(F, OUTPUT);
+  pinMode(G, OUTPUT);
+
+  // Inicializamos el servomotor
+  miServo.attach(SERVO_PIN);
+}
+
+void loop()
+{
+  // Verificar si se presion el boton de encendido
+  if (digitalRead(BOTON_ENCENDER) == LOW) 
+  {
+    sistemaEncendido = true;
+  }
+
+  // Verificar si se presiono el boton de apagado
+  if (digitalRead(BOTON_APAGAR) == LOW) 
+  {
+    sistemaEncendido = false;
+    // Apagar los LED y el servo cuando se apaga el sistema
+    digitalWrite(LED_1, LOW);
+    digitalWrite(LED_2, LOW);
+    miServo.write(0);
+    // Y borrar el display
+    borrarDisplay();
+  }
+
+  // Si el sistema esta encendido, ejecutar la logica principal
+  if (sistemaEncendido) {
+    // Leer el valor del sensor de temperatura
+    int valorSensor = analogRead(SENSOR_TEMPERATURA);
+
+    // Mapear valor del sensor al rango de temperatura (-40 a 125 grados Celsius)
+    float temperaturaCelsius = map(valorSensor, 20, 350, -40, 125);
+
+    // Mostrar la temperatura en la consola
+    Serial.print("Temperatura: ");
+    Serial.print(temperaturaCelsius);
+    Serial.println(" C");
+
+    // Mostrar la temperatura en el display de 7 segmentos
+    int nivelTemperatura = determinarNivelTemperatura(temperaturaCelsius);
+    numerosDisplay(nivelTemperatura);
+
+    // Encender o apagar los LEDs según la temperatura
+    if (temperaturaCelsius > 60) {
+      digitalWrite(LED_1, HIGH);
+      digitalWrite(LED_2, HIGH);
+      // Mover el servomotor a la posición deseada (por ejemplo, 90 grados)
+      miServo.write(90);
+    } else {
+      digitalWrite(LED_1, LOW);
+      digitalWrite(LED_2, LOW);
+      // Mover el servomotor a otra posición (por ejemplo, 0 grados)
+      miServo.write(0);
+    }
+
+    // Esperar 1 segundo antes de leer nuevamente
+    delay(1000);
+  }
+}
+
+void numerosDisplay(int numero)
+{
+  // Esta función sirve para mostrar los N correspondientes
+  // y llamamos a la funcion borrarDisplay para el apagado de los dígitos
+  borrarDisplay();
+
+  switch (numero)
+  {
+  case 0:
+    digitalWrite(A, HIGH);
+    digitalWrite(B, HIGH);
+    digitalWrite(C, HIGH);
+    digitalWrite(D, HIGH);
+    digitalWrite(E, HIGH);
+    digitalWrite(F, HIGH);
+    break;
+  case 1:
+    digitalWrite(B, HIGH);
+    digitalWrite(C, HIGH);
+    break;
+  case 2:
+    digitalWrite(A, HIGH);
+    digitalWrite(B, HIGH);
+    digitalWrite(G, HIGH);
+    digitalWrite(E, HIGH);
+    digitalWrite(D, HIGH);
+    break;
+  case 3:
+    digitalWrite(A, HIGH);
+    digitalWrite(B, HIGH);
+    digitalWrite(G, HIGH);
+    digitalWrite(C, HIGH);
+    digitalWrite(D, HIGH);
+    break;
+  case 4:
+    digitalWrite(F, HIGH);
+    digitalWrite(B, HIGH);
+    digitalWrite(G, HIGH);
+    digitalWrite(C, HIGH);
+    break;
+  case 5:
+    digitalWrite(A, HIGH);
+    digitalWrite(F, HIGH);
+    digitalWrite(G, HIGH);
+    digitalWrite(C, HIGH);
+    digitalWrite(D, HIGH);
+    break;
+  case 6:
+    digitalWrite(A, HIGH);
+    digitalWrite(F, HIGH);
+    digitalWrite(G, HIGH);
+    digitalWrite(C, HIGH);
+    digitalWrite(E, HIGH);
+    digitalWrite(D, HIGH);
+    break;
+  case 7:
+    digitalWrite(A, HIGH);
+    digitalWrite(B, HIGH);
+    digitalWrite(C, HIGH);
+    break;
+  case 8:
+    digitalWrite(A, HIGH);
+    digitalWrite(B, HIGH);
+    digitalWrite(C, HIGH);
+    digitalWrite(D, HIGH);
+    digitalWrite(E, HIGH);
+    digitalWrite(F, HIGH);
+    digitalWrite(G, HIGH);
+    break;
+  case 9:
+    digitalWrite(A, HIGH);
+    digitalWrite(B, HIGH);
+    digitalWrite(C, HIGH);
+    digitalWrite(F, HIGH);
+    digitalWrite(G, HIGH);
+    break;
+  default:
+    break;
+  }
+}
+
+void borrarDisplay()
+{
+  // Apaga todos los segmentos del display
+  digitalWrite(A, LOW);
+  digitalWrite(B, LOW);
+  digitalWrite(C, LOW);
+  digitalWrite(D, LOW);
+  digitalWrite(E, LOW);
+  digitalWrite(F, LOW);
+  digitalWrite(G, LOW);
+}
+
+int determinarNivelTemperatura(float temperatura)
+{
+  if (temperatura < 30) {
+    return 0;
+  } else if (temperatura >= 30 && temperatura <= 34) {
+    return 1;
+  } else if (temperatura >= 35 && temperatura <= 39) {
+    return 2;
+  } else if (temperatura >= 40 && temperatura <= 44) {
+    return 3;
+  } else if (temperatura >= 45 && temperatura <= 49) {
+    return 4;
+  } else if (temperatura >= 50 && temperatura <= 54) {
+    return 5;
+  } else if (temperatura >= 55 && temperatura <= 59) {
+    return 6;
+  } else if (temperatura >= 60 && temperatura <= 64) {
+    return 7;
+  } else if (temperatura >= 65 && temperatura <= 69) {
+    return 8;
+  } else {
+    return 9;
+  }
+}
